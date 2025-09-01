@@ -123,6 +123,10 @@ def process_participant(participant_id, algo):
         'pred_bvp': pred_bvp.tolist(),
         'f1_gsr': f1_gsr,
         'f1_bvp': f1_bvp,
+        'precision_per_part_gsr': p1,
+        'recall_per_part_gsr': r1,
+        'precision_per_part_bvp': p2,
+        'recall_per_part_bvp': r2,
         'stressed_gsr': stressed_gsr, 'happy_gsr': happy_gsr, 'relaxed_gsr': relaxed_gsr,
         'depressed_gsr': depressed_gsr, 'neutral_gsr': neutral_gsr,
         'stressed_bvp': stressed_bvp, 'happy_bvp': happy_bvp, 'relaxed_bvp': relaxed_bvp,
@@ -145,8 +149,17 @@ if __name__ == "__main__":
     # collect f1 scores
     F1_scores_gsr = []
     F1_scores_bvp = []
+    precision_per_part_gsr = []
+    recall_per_part_gsr = []
+    precision_per_part_bvp = []
+    recall_per_part_bvp = []
+
 
     for res in results:
+        precision_per_part_gsr.append(res['precision_per_part_gsr'])
+        recall_per_part_gsr.append(res['recall_per_part_gsr'])
+        precision_per_part_bvp.append(res['precision_per_part_bvp'])
+        recall_per_part_bvp.append(res['recall_per_part_bvp'])
         F1_scores_gsr.append(res['f1_gsr'])
         F1_scores_bvp.append(res['f1_bvp'])
 
@@ -157,6 +170,7 @@ if __name__ == "__main__":
     # compute total tp, fp, fn
     for res in results:
         tp, fp, fn = compute_tp_fp_fn(res['pred_gsr'], res['gt_gsr'], margin=40)
+
         total_tp_gsr += tp
         total_fp_gsr += fp
         total_fn_gsr += fn
@@ -202,6 +216,10 @@ if __name__ == "__main__":
     participant_ids = np.arange(1, len(F1_scores_gsr) + 1)
     print("macro f1 (gsr):", np.mean(F1_scores_gsr))
     print("macro f1 (bvp):", np.mean(F1_scores_bvp))
+    print("macro precision (gsr):", np.mean(precision_per_part_gsr))
+    print("macro precision (bvp):", np.mean(precision_per_part_bvp))
+    print("macro recall (gsr):", np.mean(recall_per_part_gsr))
+    print("macro recall (bvp):", np.mean(recall_per_part_bvp))
     print("micro f1 (gsr):", micro_f1_gsr)
     print("micro f1 (bvp):", micro_f1_bvp)
     print("recall (gsr):", recall_gsr)
