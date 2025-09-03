@@ -135,7 +135,7 @@ def process_participant(participant_id, algo):
     
     
 if __name__ == "__main__":
-    algo = "icid" # choose between "changeforest" and "mcpd"
+    algo = "icid" # choose between "changeforest" and "icid"
 
     # get list of participants
     participants = [
