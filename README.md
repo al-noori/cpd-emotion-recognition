@@ -1,4 +1,5 @@
 # Change-Point Detection for Emotion Recognition  
+_The repo and paper were created during the “Communication Technologies 1” module, in which a scientific conference on machine learning topics was simulated._
 
 This project investigates the application of **unsupervised change-point detection algorithms** to physiological data for **emotion recognition** in Human-Robot Interaction (HRI). We compare two recent state-of-the-art methods on real-world multimodal signals collected during an HRI sales simulation study.  
 
